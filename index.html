@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <title>EduVerse</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.10.1/nipplejs.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+
+</head>
+
+<body>
+
+    <div id="lobby-screen" style="position:fixed; top:0; left:0; width:100%; height:100%; background:url('lobby-forest.jpg') center/cover; display:flex; justify-content:center; align-items:center; z-index:9000;">
+
+        <div style="background:white; padding:40px; border-radius:30px; text-align:center; width:85%; max-width:400px; border:8px solid #f1c40f;">
+
+            <h1 style="margin:0; font-size:32px;">CLARIFY</h1>
+
+            <p style="font-weight:700; color:#7f8c8d; margin-bottom:30px;">eradicate fake news, save the world!</p>
+
+            <button class="btn-next" style="border-radius:50px; margin-top:0;" onclick="mulaiGame()">START THE GAME</button>
+
+            <button class="btn-next" style="background:#3498db; border-radius:50px;" onclick="bukaLiterasi()">DIGITAL LITERACY</button>
+
+        </div>
+
+    </div>
+
+
+
+    <div id="ui-container-left" class="ui-container-left hidden">
+
+        <div class="score-badge">
+
+            <span class="icon">📝</span> 
+
+            <span class="label">SCORE:</span> 
+
+            <span id="score-display">0</span>
+
+        </div>
+
+        <div id="level-display-container" class="level-badge">
+
+            <span id="level-display">LVL 1</span>
+
+        </div>
+
+    </div>
+
+
+
+    <div id="top-nav-right" class="hidden">
+
+        <div class="nav-btn rank" onclick="bukaPeringkat()"><span>🏆</span> RANKING</div>
+
+        <div class="nav-btn profile" onclick="bukaEditProfil()"><span>👤</span> PROFILE</div>
+
+    </div>
+
+
+
+    <div id="literasi-modal" class="hidden">
+
+        <div class="wiki-header">
+
+            <span style="font-weight:900; font-size:18px;">📖 DIGITAL LITERACY</span>
+
+            <button style="background:#e74c3c; color:white; border:none; padding:10px 20px; border-radius:30px; cursor:pointer;" onclick="tutupLiterasi()">TUTUP</button>
+
+        </div>
+
+        <div class="wiki-body">
+
+            <div class="wiki-sidebar">
+
+                <div id="menu-cek-hoax" class="wiki-menu-item active" onclick="showWiki('cek-hoax')">LANGKAH AMPUH MENDETEKSI BERITA HOAX </div>
+
+                <div id="menu-belajar" class="wiki-menu-item" onclick="showWiki('belajar')">BELAJAR DIGITAL LITERASI</div>
+
+                <div id="menu-tips" class="wiki-menu-item" onclick="showWiki('tips')">TIPS MENGENALI HOAX</div>
+
+                <div id="menu-check" class="wiki-menu-item" onclick="showWiki('check')">CARA MELAKUKAN FACT CHECK</div>
+
+            </div>
+
+            <div class="wiki-content-area">
+
+                <div id="content-cek-hoax" class="wiki-page active">
+
+                    <h1>Cara Cek Hoaks Secara Mandiri</h1>
+
+                    <p>Berita bohong (hoax) atau fake news sedang menjadi perhatian besar di seluruh dunia. Dampak dari informasi hoaxrupanya lebih besar dari apa yang pernah terpikirkan.
+
+Berbagai langkah kini dilakukan agar masyarakat tidak lagi mudah tertipu dengan berita-berita palsu yang dengan mudah masuk ke linimasa pengguna media sosial. Salah satu caranya adalah dengan literasi media online.
+
+Dirjen Aplikasi dan Informatika Kominfo Semuel Abrijani Pangerapan, dalam konferensi pers pasca-pertemuan dengan perwakilan Twitter Asia Pasifik, mengatakan bahwa literasi sangatlah penting untuk memerangi penyebaran berita hoax.</p>
+
+<p>Oleh karena itu, ada beberapa langkah yang bisa Anda tempuh sebelum memercayai kemudian membagikan sebuah berita. Cara ini dapat digunakan untuk memastikan bahwa berita yang Anda baca benar dan dapat dipertanggungjawabkan.</p>
+
+
+
+<p><b>1. Amati URL-nya</b></p>
+
+<p>Apakah Anda pernah melihat alamat URL yang aneh seperti com.co? Link yang aneg atau typo biasanya tidak dapat dipercaya. 
+
+Anda perlu mengecek bagian ‘about’ atau ‘contact’. Jika situs tersebut dapat dipercaya, mereka akan mencantumkan alamat redaksi atau kelembagaan.</p>
+
+
+
+ <p><b>2. Sumber Berita</b></p>
+
+<p>Anda perlu memerhatikan sumber berita yang sedang dibaca. Menurut penelitian Mastel, media sosial menjadi sarana yang paling banyak digunakan untuk menyebarkan berita hoax yakni 31,9%.</p>
+
+<p>"Berdasarkan sumber penyebarannya, media sosial seperti Facebook dan Twitter menyumbang peredaran hoax sebesar 31,9%," ungkap Teguh Prasetya Ketua Bidang Strategis Mastel.</p> 
+
+
+
+
+
+<p><b>3. Memancing Emosi</b></p>
+
+<p>Apakah judul dari berita atau artikel yang Anda baca terasa memprovokasi? Bisa jadi artikel itu tidak bisa dipercaya. Laporan palsu sering menargetkan emosi dengan klaim aneh atau kata-kata tidak patriotik atau bahasa yang hiperbola. Jika akal sehat memberitahu Anda itu tidak mungkin benar, berita itu kemungkinan memang tidak benar.</p>
+
+                </div>
+
+                <div id="content-belajar" class="wiki-page">
+
+                    <h1>APA ITU DIGITAL LITERASI ?</h1>
+
+                    <p>Untuk benar-benar memahami apa itu literasi digital, bayangkan betapa teknologi sudah menyatu dalam kehidupan sehari-hari. Pada tahun 2025, sekitar 5,56 miliar orang di seluruh dunia menggunakan internet, sehingga perangkat dan platform digital menjadi bagian penting dalam mengelola keuangan, berkomunikasi, mengakses pendidikan, hingga mengonsumsi berita.
+
+Literasi digital tidak hanya sekadar bisa menggunakan teknologi. Literasi digital adalah kemampuan untuk memanfaatkan berbagai alat dan platform digital secara efektif guna mencari, mengevaluasi, menciptakan, dan mengomunikasikan informasi. Menurut American Library Association, seseorang yang melek digital memiliki keterampilan teknis sekaligus kemampuan kognitif untuk memproses informasi dalam berbagai format, menggunakan teknologi secara efektif, serta berpartisipasi secara bertanggung jawab di ruang digital.
+
+Pada dasarnya, literasi digital memungkinkan seseorang untuk mengakses dan membagikan informasi secara bertanggung jawab. Literasi ini mendorong individu untuk mencari sumber yang kredibel, menghasilkan konten yang bermakna, serta terhubung dengan orang lain secara positif dan konstruktif. Intinya, literasi digital adalah tentang menavigasi dunia digital dengan kesadaran, tujuan, dan rasa percaya diri.
+
+
+
+<p><b>Mengapa Literasi Digital Penting?</b></p>
+
+Literasi digital bukan hanya soal mengikuti perkembangan teknologi terbaru. Meskipun kemampuan untuk beradaptasi dengan alat dan perangkat lunak baru itu penting, literasi digital juga membentuk cara seseorang berpikir, berkomunikasi, dan mengambil keputusan di lingkungan digital.
+
+Seiring teknologi terus mengubah dunia pendidikan, pekerjaan, dan interaksi sosial, individu yang memiliki keterampilan literasi digital akan lebih siap bersaing di pasar kerja, terhubung dengan komunitas global, serta menjalani proses belajar sepanjang hayat. Center for Strategic and International Studies (CSIS) menekankan bahwa literasi digital kini menjadi keterampilan hidup yang krusial, sejajar dengan kemampuan membaca, menulis, dan berhitung bagi warga masyarakat modern.
+
+Yang lebih penting lagi, literasi digital berperan besar dalam membantu seseorang mengenali misinformasi dan mencegah penyebaran hoaks. Literasi ini secara langsung memengaruhi kemampuan untuk mencari informasi, menilai keakuratannya, mengelola data, serta merespons secara bijak di ruang digital. Ketika ketergantungan kita pada teknologi semakin meningkat, kemampuan berpikir kritis dan kemauan untuk terus belajar menjadi kunci agar kita dapat menjalani kehidupan pribadi maupun profesional secara bertanggung jawab.
+
+
+
+<h2><b>Dampak Dari Hoaks :</b></h2>
+
+<p><b>Dampak Terhadap Individu</b></p>
+
+Hoaks dapat menimbulkan rasa takut, kebingungan, dan kesalahpahaman. Informasi palsu seperti ini sering kali mendorong seseorang mengambil keputusan pribadi yang kurang tepat, serta mengikis kepercayaan terhadap sumber informasi yang kredibel. Seiring waktu, paparan berulang terhadap informasi yang keliru dapat membuat individu meragukan fakta dan justru bergantung pada narasi yang tidak dapat dipercaya.
+
+<p><b>Dampak Terhadap Masyarakat</b></p>
+
+Pada tingkat masyarakat, hoaks dapat memicu perpecahan dan konflik antar komunitas. Misinformasi berpotensi menyulut permusuhan, memperkuat stereotip, serta menurunkan kualitas diskusi publik. Ketika kepercayaan mulai terkikis, kerja sama dan keharmonisan sosial pun menjadi semakin sulit untuk dipertahankan.
+
+<p><b>Dampak Terhadap Negara</b></p>
+
+Bagi sebuah negara, penyebaran hoaks dapat mengancam stabilitas sosial dan politik. Informasi palsu dapat melemahkan kepercayaan publik terhadap institusi, mengganggu proses perumusan kebijakan yang berbasis bukti, serta merusak jalannya proses demokrasi. Dalam jangka panjang, misinformasi yang meluas berpotensi merugikan persatuan nasional dan tata kelola pemerintahan.
+
+<h1>JENIS INFORMASI DI INTERNET</h1>
+
+<p>Tidak semua informasi di internet memiliki tujuan yang sama atau tingkat keakuratan yang setara. Memahami perbedaan tersebut membantu seseorang menentukan informasi mana yang layak dipercaya, perlu dipertanyakan, atau harus diverifikasi terlebih dahulu.
+
+<p><h2>Fakta</h2></p>
+
+Informasi yang benar, dapat diverifikasi, dan didukung oleh bukti atau sumber yang dapat dipercaya.
+
+<p><b>Ciri-ciri utama:</b></p>
+
+<p>•    Dapat diperiksa kebenarannya melalui sumber yang kredibel</p>
+
+<p>•    Berdasarkan data, catatan, atau bukti langsung</p>
+
+<p>•    Tetap benar terlepas dari pendapat atau pandangan pribadi</p>
+
+<p><h2>Opini</h2></p>
+
+Pandangan, keyakinan, atau penafsiran pribadi yang tidak selalu didasarkan pada fakta.
+
+<p><b>Ciri-ciri utama:</b></p>
+
+<p>•    Bersifat subjektif dan personal</p>
+
+<p>•    Sering menggunakan ungkapan seperti “saya pikir”, “saya percaya”, atau “menurut saya”</p>
+
+<p>•    Tidak dapat dibuktikan benar atau salah secara mutlak</p>
+
+<p><h2>Satire/Parodi</h2></p>
+
+Konten yang dibuat untuk tujuan humor, kritik, atau hiburan dan tidak dimaksudkan untuk dipahami secara harfiah.
+
+<p><b>Ciri-ciri utama:</b></p>
+
+<p>•    Menggunakan unsur berlebihan (hiperbola) atau ironi</p>
+
+<p>•    Biasanya dipublikasikan di platform satire atau komedi</p>
+
+<p>•    Dapat menyesatkan jika dianggap sebagai informasi yang serius</p>
+
+<p><h2>Misinformasi</h2></p>
+
+Informasi yang salah atau tidak akurat yang dibagikan tanpa adanya niat untuk menipu.
+
+<p><b>Ciri-ciri utama:</b></p>
+
+<p>•    Sering disebarkan oleh orang yang sebenarnya berniat baik</p>
+
+<p>•    Tidak melalui proses verifikasi terlebih dahulu</p>
+
+<p>•    Umumnya tersebar dengan cepat melalui media sosial atau grup percakapan</p>
+
+<p><h2>Disinformasi</h2></p>
+
+Informasi palsu yang sengaja dibuat dan disebarkan untuk menyesatkan atau memanipulasi.
+
+<p><b>Ciri-ciri utama:</b></p>
+
+<p>•    Dibuat dengan unsur kesengajaan untuk menipu</p>
+
+<p>•    Sering bersifat provokatif dan membangkitkan emosi</p>
+
+<p>•    Bertujuan memperoleh kekuasaan, keuntungan finansial, atau pengaruh</p>
+
+<p><h2>Malinformasi</h2></p>
+
+Informasi yang sebenarnya benar, tetapi digunakan dengan cara yang merugikan atau menyesatkan, biasanya dengan menghilangkan konteksnya.
+
+<p><b>Ciri-ciri utama:</b></p>
+
+<p>•    Berdasarkan informasi yang nyata dan faktual</p>
+
+<p>•    Konteksnya dipelintir atau dihilangkan</p>
+
+<p>•    Digunakan untuk merugikan individu, kelompok, atau institusi</p>
+
+<p><h2>Bagaimana Hoaks Menyebar</h2></p>
+
+Di era digital, informasi menyebar dengan sangat cepat melalui media sosial dan aplikasi pesan. Hanya dengan satu klik, sebuah pesan dapat menjangkau banyak orang, terutama dalam grup percakapan yang sering terasa lebih tepercaya karena berasal dari teman atau keluarga. Banyak hoaks tersebar bukan karena niat buruk, melainkan karena orang ingin membagikan informasi yang mereka anggap bermanfaat atau penting.
+
+Paparan berulang terhadap informasi yang sama dapat membuat berita palsu terasa seolah-olah benar. Ketika seseorang lebih sering menemukan konten yang sesuai dengan keyakinannya, ia cenderung tidak mempertanyakannya lagi. Platform media sosial juga cenderung mendorong konten yang memicu reaksi kuat, sementara pesan yang bersifat emosional biasanya menyebar lebih cepat dibandingkan informasi yang tenang dan berbasis fakta. Rasa takut, marah, atau simpati dapat mendorong seseorang untuk langsung membagikan konten tanpa memeriksa keakuratannya, sehingga hoaks terus beredar.
+
+</p>
+
+                </div>
+
+                <div id="content-tips" class="wiki-page">
+
+                    <h1>TIPS MENGENALI HOAX</h1>
+
+                    <p>Hoax adalah istilah yang merujuk pada ketidakbenaran suatu informasi atau berita bohong. Berita hoax seringkali dibuat untuk menciptakan kebingungan, kecemasan, atau bahkan konflik dalam masyarakat. Berikut adalah ciri-ciri penyebaran berita hoax:
+
+<p>•    Menciptakan kecemasan, kebencian, permusuhan, atau pemujaan.</p>
+
+<p>•    Sumber informasi tidak jelas, sehingga tidak ada pihak yang dapat dimintai klarifikasi atau tanggung jawab.</p>
+
+<p>•    Pesan bersifat sepihak, yang hanya menyerang atau membela tanpa dasar yang jelas.</p>
+
+<p>•    Mencatut nama tokoh berpengaruh untuk menarik perhatian.</p>
+
+<p>•    Menggunakan media dengan nama yang menyerupai media terkenal, sehingga terlihat lebih meyakinkan.</p>
+
+<p>•    Memanfaatkan fanatisme, baik atas nama ideologi maupun agama.</p>
+
+<p>•    Judul atau pengantar tidak sesuai dengan isi berita.</p>
+
+<p>•    Tampilan atau judul bersifat provokatif, memancing emosi pembaca.</p>
+
+<p>•    Meminta pembaca untuk membagikan atau memviralkan informasi tersebut.</p>
+
+
+
+<P><h2>Dampak Penyebaran Berita Hoax :</h2></P>
+
+Penyebaran berita hoax memiliki berbagai dampak negatif yang signifikan terhadap kehidupan masyarakat. Salah satunya adalah ketidakmampuan masyarakat untuk memperoleh informasi yang benar. Ketika informasi yang diterima tidak akurat, masyarakat kesulitan dalam membuat keputusan yang tepat. Hal ini semakin diperparah dengan meningkatnya rasa saling curiga dan permusuhan di antara individu maupun kelompok dalam masyarakat.
+
+Selain itu, berita hoax seringkali menimbulkan opini yang salah terhadap fakta. Akibatnya, cara pandang individu atau kelompok dapat dipengaruhi secara negatif. Dampak ini tidak hanya berhenti di tingkat individu, tetapi juga berpotensi menimbulkan eskalasi konflik dan kerusuhan yang lebih luas. Dalam skala sosial, penyebaran hoax juga dapat memicu munculnya pengelompokan dan radikalisme di masyarakat.
+
+Lebih jauh lagi, proses integrasi keindonesiaan, yang sering disebut sebagai imagined community, dapat terancam oleh gerakan radikalisme baru yang berkembang akibat penyebaran hoax. Di sisi lain, industri media konvensional juga mengalami dampak negatif, karena semakin banyak orang yang memilih untuk mengakses berita-berita hoax yang lebih mudah dijangkau. Tidak jarang pula, 
+
+pemerintah menjadi sasaran utama penyebaran berita hoax, sehingga menimbulkan kesan buruk terhadap kinerja pemerintah di mata masyarakat.
+
+
+
+<P><h2>Upaya Pencegahan Penyebaran Berita Hoax :</h2></P>
+
+<p><b>• Undang-Undang Informasi dan Transaksi Elektronik (UU ITE)</b></p>
+
+<p>•    UU ITE menjadi payung hukum untuk aktivitas di dunia maya.</p>
+
+<p>•    Larangan di dunia nyata diperluas ke dunia maya.</p>
+
+<p>•    UU ITE direvisi menjadi UU No. 19 Tahun 2016 untuk memastikan keadilan dan kepastian hukum.</p>
+
+<p>•    Masyarakat dapat melaporkan konten hoax melalui email <b>aduankonten@mail.kominfo.go.id</b> atau situs web <b>http://trustpositif.kominfo.go.id.</b></p>
+
+<p>•    Pasal 40 Ayat 2A: Pemerintah wajib mencegah penyebarluasan dan penggunaan informasi elektronik yang dilarang.</P>
+
+<p>•    Pasal 40 Ayat 2B: Pemerintah berwenang melakukan pemutusan akses terhadap konten terlarang.</p>
+
+<p><b>• Peran Humas dan Komunikasi Pemerintah.</b></p>
+
+<p>•    Mendorong humas dan Kominfo menjadi produsen konten digital yang kredibel.</p>
+
+<p>•    Mengembangkan komunikasi dialogis di media sosial untuk mengajak masyarakat berkomunikasi secara rasional dan produktif.</p>
+
+<p>•    Menggunakan pendekatan yang cerdas dan kreatif dalam menyampaikan informasi.</p>
+
+<p>•    Humas harus luwes, komunikatif, namun tetap tegas dalam mengelola informasi.</p>
+
+<p>•    Berkoordinasi dengan berbagai elemen pemerintahan untuk menyampaikan informasi yang akurat.</p>
+
+<p>•    Mengomunikasikan fakta tanpa terlibat dalam perdebatan yang tidak produktif.</p>
+
+<p>•    Mengatur dan mengawasi isu-isu komunikasi dengan respons cepat terhadap penyebaran hoax.</p>
+
+<p><b>• Upaya Masyarakat dalam Mengatasi Hoax.</b></p>
+
+<p>•    Berhati-hati dalam menerima dan menyebarkan informasi.</p>
+
+<p>•    Memastikan kebenaran informasi sebelum membagikannya dengan memeriksa sumbernya.</p>
+
+<p>•    Tidak mudah percaya pada informasi yang tidak jelas asal-usulnya, terutama yang memiliki judul provokatif atau bombastis.</p>
+
+<p>•    Mengedukasi diri sendiri mengenai literasi digital untuk memahami cara kerja media dan mengenali ciri-ciri hoax.</p>
+
+<p>•    Melaporkan berita yang diduga hoax kepada pihak berwenang atau platform media terkait.</p>
+
+<p>•    Menghindari keterlibatan emosional saat membaca berita yang memancing emosi.</p>
+
+<p>•    Berpikir kritis dan tidak mudah terprovokasi oleh informasi yang belum terverifikasi.</p>
+
+<p>•    Mendukung kampanye melawan hoax yang sering digalakkan oleh pemerintah atau komunitas lokal.</p>
+
+        </div>
+
+                      <div id="content-check" class="wiki-page">
+
+                        <h1>CARA MELAKUKAN FACT CHECK</h1>
+
+                        <p>Lelah melihat misinformasi berseliweran di linimasa? Bingung menentukan siapa atau apa yang bisa dipercaya? Ingin punya “radar kebenaran” yang lebih tajam? Berikut panduan singkat untuk memilah fakta, mengevaluasi sumber, dan menjadi lebih cermat dalam menggunakan informasi.
+
+Di era digital, informasi menyebar dengan sangat cepat. Hoaks dan misinformasi pun lebih mudah beredar, terutama jika memicu emosi yang kuat. Berbagai penelitian menunjukkan bahwa informasi palsu sering kali menyebar lebih cepat dibandingkan fakta yang telah diverifikasi.
+
+Karena itu, kemampuan memeriksa kebenaran informasi merupakan bagian penting dari literasi digital. Proses verifikasi tidak hanya soal menentukan benar atau salah, tetapi juga memahami konteks, tujuan, dan kredibilitas suatu informasi.
+
+</p>
+
+<p><h2>Langkah-Langkah Fact-Check</h2></p>
+
+              <p><b>1. Periksa Kredensial Penulis</b></p>
+
+<p>Apakah penulis memiliki keahlian di bidang yang dibahas? Apakah ia bekerja atau memiliki pengalaman di bidang tersebut? Coba telusuri profil profesionalnya, misalnya melalui LinkedIn atau pencarian singkat di Google untuk memastikan otoritas dan akurasinya.</p>
+
+              <p><b>2. Baca Bagian “Tentang Kami”</b></p>
+
+<p>Apakah situs tersebut memiliki halaman “About Us”? Situs yang kredibel biasanya menjelaskan siapa mereka dan menyediakan informasi kontak yang jelas.
+
+              <p><b>3. Perhatikan Bias</b></p>
+
+<p>Apakah artikel cenderung memihak pada sudut pandang tertentu? Apakah tautannya hanya mengarah ke sumber dengan pandangan yang sama? Artikel yang bias sering kali tidak menyajikan gambaran secara utuh.</p>              
+
+              <p><b>4. Periksa Tanggal Publikasi</b></p>
+
+<p>Seperti bahan makanan, informasi juga bisa “kedaluwarsa”. Dalam banyak kasus, gunakan informasi yang paling terbaru dan relevan.</p>              
+
+              <p><b>5. Telusuri Sumber yang Dikutip</b></p>
+
+<p>Jika sebuah artikel mencantumkan referensi, luangkan waktu untuk memeriksanya. Nama organisasi yang terdengar resmi belum tentu netral. Bisa jadi itu lembaga dengan kepentingan tertentu atau hanya mewakili pandangan kelompok kecil. Jika sumber tidak jelas, bacalah beberapa referensi lain untuk mendapatkan gambaran yang lebih luas sebelum menarik kesimpulan.</p>              
+
+              <p><b>6. Cermati URL</b></p>
+
+<p>Waspadai manipulasi domain. Misalnya, alamat yang tampak seperti domain pendidikan (.edu) tetapi diikuti tambahan aneh seperti .co atau variasi lain bisa jadi menyesatkan. Jika alamat situs tampak mirip dengan situs terkenal namun sedikit berbeda, lakukan pengecekan lebih lanjut.</p>              
+
+              <p><b>7. Curigai Judul Sensasional</b></p>
+
+<p>Judul yang terlalu provokatif, penuh huruf kapital, atau sarat bahasa emosional adalah tanda bahaya. Informasi yang membakar emosi sering kali dirancang untuk memancing klik, bukan untuk menyampaikan kebenaran.</p>
+
+              <p><b>8. Gunakan Penilaian Kritis</b></p>
+
+<p>Jika suatu informasi terasa terlalu bagus untuk menjadi kenyataan, terlalu aneh, atau terlalu memancing reaksi, kemungkinan besar memang demikian. Berhenti sejenak, tarik napas, dan periksa kembali sebelum membagikannya.</p>
+
+<p>Kemampuan fact-check bukan sekadar keterampilan teknis, melainkan kebiasaan berpikir kritis. Di dunia digital yang bergerak cepat, sikap hati-hati adalah bentuk tanggung jawab.
+
+</p>              
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div id="leaderboard-modal" class="modal-overlay hidden">
+
+        <div class="modal-content">
+
+            <h2 style="margin-top:0;">🏆 TOP HUNTER</h2>
+
+            <div id="rank-list" style="max-height:280px; overflow-y:auto; margin-bottom:15px;"></div>
+
+            <button class="btn-next" style="background:#34495e" onclick="tutupPeringkat()">BACK</button>
+
+        </div>
+
+    </div>
+
+
+
+    <div id="profile-modal" class="modal-overlay hidden">
+
+        <div class="modal-content">
+
+            <h2>👤 EDIT PROFILE</h2>
+
+            <input type="text" id="input-nama" placeholder="Nama...">
+
+            <div class="avatar-grid" style="display:flex; justify-content:center; gap:20px; margin:15px 0;">
+
+                <div class="avatar-option active" onclick="pilihAvatar(0, this)">
+
+                    <div class="avatar-crop"><img src="player cowo.png" class="sprite-preview"></div>
+
+                    <p style="margin:5px 0 0; font-weight:bold; font-size:12px;">MALE</p>
+
+                </div>
+
+                <div class="avatar-option" onclick="pilihAvatar(1, this)">
+
+                    <div class="avatar-crop"><img src="player cewe.png" class="sprite-preview"></div>
+
+                    <p style="margin:5px 0 0; font-weight:bold; font-size:12px;">FEMALE</p>
+
+                </div>
+
+            </div>
+
+            <button class="btn-next" style="background:#2ecc71;" onclick="simpanProfil()">SAVE</button>
+
+            <button class="btn-cancel-red" onclick="tutupEditProfil()">CLOSE</button>
+
+        </div>
+
+    </div>
+
+
+
+    <div id="quiz-modal" class="modal-overlay hidden">
+
+        <div class="modal-content">
+
+            <h3 id="q-text"></h3>
+
+            <div id="quiz-options">
+
+                <button onclick="jawab('fakta')" class="btn-next" style="background:#2ecc71;">TRUE</button>
+
+                <button onclick="jawab('hoax')" class="btn-next" style="background:#e74c3c;">FALSE</button>
+
+            </div>
+
+            <div id="feedback" class="hidden">
+
+                <p id="feedback-text"></p>
+
+                <button class="btn-next" onclick="tutupKuis()">NEXT</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div id="level-modal" class="modal-overlay hidden">
+
+        <div class="modal-content">
+
+            <h2 id="level-title">🎉 LEVEL COMPLETE! 🎉</h2>
+
+            <p id="level-stats">Your current score: 0</p>
+
+            <button id="btn-next-level" onclick="window.lanjutLevel()" class="btn-next" style="background:#2ecc71;">TO THE NEXT LEVEL</button>
+
+            <button class="btn-cancel-red" onclick="window.keLobby()">MAIN MENU</button>
+
+        </div>
+
+    </div>
+
+
+
+    <div id="victory-modal" class="modal-overlay hidden">
+
+        <div class="modal-content" style="border-color: #f1c40f;">
+
+            <h1 style="font-size: 50px; margin:0;">🏆</h1>
+
+            <h2>MISSION COMPLETE!</h2>
+
+            <p>Congrats! You have completed all stages and become a True Hunter.</p>
+
+            <h3 id="final-score-text">Score total: 0</h3>
+
+            <button class="btn-next" onclick="window.keLobby()" style="background:#2ecc71;">PLAY AGAIN ?</button>
+
+        </div>
+
+    </div>
+
+
+
+    <div id="joystick-container"></div>
+
+    <div id="game-container"></div>
+
+
+
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html> 
